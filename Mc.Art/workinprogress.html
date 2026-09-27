@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Work in Progress — Mc.Art</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .orange-dot {
+            color: #ff7a00;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 6%;
+
+            background: rgba(8, 8, 8, 0.55);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 13px;
+            opacity: .75;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: #ff7a00;
+        }
+
+        /* PAGINA */
+
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 140px 7% 80px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* EFFETTO DI SFONDO */
+
+        .page::before {
+            content: "";
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            background: #ff7a00;
+
+            border-radius: 50%;
+
+            filter: blur(180px);
+
+            opacity: .08;
+
+            top: 20%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 1100px;
+
+            text-align: center;
+        }
+
+        .number {
+            color: #777;
+
+            font-size: 12px;
+
+            letter-spacing: 5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(55px, 10vw, 130px);
+
+            letter-spacing: -6px;
+
+            line-height: .9;
+
+            margin-bottom: 35px;
+        }
+
+        h1 span {
+            color: #ff7a00;
+        }
+
+        .description {
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            color: #999;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+        }
+
+        /* ANIMAZIONE */
+
+        .loader {
+            width: 100%;
+
+            max-width: 500px;
+
+            height: 2px;
+
+            background: #222;
+
+            margin: 55px auto 25px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .loader::after {
+            content: "";
+
+            position: absolute;
+
+            left: -30%;
+
+            top: 0;
+
+            width: 30%;
+
+            height: 100%;
+
+            background: #ff7a00;
+
+            animation: loading 2s infinite ease-in-out;
+        }
+
+        @keyframes loading {
+
+            0% {
+                left: -30%;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .status {
+            color: #666;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 50px;
+
+            padding: 14px 25px;
+
+            border: 1px solid #333;
+
+            border-radius: 30px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            letter-spacing: 2px;
+
+            transition: .3s;
+        }
+
+        .back:hover {
+            background: #ff7a00;
+
+            border-color: #ff7a00;
+
+            color: #000;
+        }
+
+        /* FOOTER */
+
+        footer {
+            position: absolute;
+
+            bottom: 30px;
+
+            left: 7%;
+            right: 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #555;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+        }
+
+        footer strong {
+            color: #aaa;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                margin-left: 12px;
+                font-size: 11px;
+            }
+
+            .page {
+                padding: 130px 5% 100px;
+            }
+
+            h1 {
+                letter-spacing: -4px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            footer {
+                left: 5%;
+                right: 5%;
+
+                flex-direction: column;
+
+                gap: 10px;
+
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin-left: 8px;
+                margin-right: 8px;
+            }
+
+            h1 {
+                font-size: 60px;
+            }
+
+            .loader {
+                max-width: 90%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <a href="index.html" class="logo">
+            Mc<span class="orange-dot">.</span>Art
+        </a>
+
+        <div>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#about">
+                Chi sono
+            </a>
+
+            <a href="index.html#gallery">
+                Opere
+            </a>
+
+            <a href="credenziali.html">
+                Credenziali
+            </a>
+
+            <a href="work-in-progress.html">
+                Work in Progress
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CONTENUTO -->
+
+    <main class="page">
+
+        <div class="content">
+
+            <div class="number">
+                03 — In sviluppo
+            </div>
+
+            <h1>
+                Work<br>
+                <span>in Progress</span>
+            </h1>
+
+            <p class="description">
+
+                Nuovi progetti, nuove opere e nuove idee
+                sono attualmente in fase di sviluppo.
+
+                <br><br>
+
+                Questa sezione verrà aggiornata
+                con i prossimi lavori di
+                <strong>Mc<span class="orange-dot">.</span>Art</strong>.
+
+            </p>
+
+
+            <div class="loader"></div>
+
+            <div class="status">
+                Nuovi lavori in arrivo
+            </div>
+
+
+            <a href="index.html" class="back">
+                ← TORNA AL PORTFOLIO
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+            © 2026
+            <strong>
+                Mc<span class="orange-dot">.</span>Art
+            </strong>
+        </div>
+
+        <div>
+            Mario Cerrito
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

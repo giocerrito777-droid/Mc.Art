@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Credenziali — Mc.Art</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.orange-dot {
+    color: #ff7a00;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 6%;
+
+    background: rgba(8,8,8,.45);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+nav div {
+    display: flex;
+    align-items: center;
+}
+
+nav div a {
+    color: white;
+    text-decoration: none;
+
+    margin-left: 30px;
+
+    font-size: 13px;
+
+    opacity: .72;
+
+    transition: .3s;
+}
+
+nav div a:hover {
+    opacity: 1;
+    color: #ff7a00;
+}
+
+nav div a.active {
+    opacity: 1;
+    color: white;
+}
+
+nav div a.active::after {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+    height: 1px;
+
+    background: #ff7a00;
+
+    margin-top: 7px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    padding: 180px 7% 90px;
+}
+
+.header-label {
+    color: #777;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+.header h1 {
+    font-size: clamp(45px, 7vw, 85px);
+
+    line-height: .95;
+
+    letter-spacing: -4px;
+
+    margin-top: 18px;
+}
+
+.header h1 span {
+    color: #ff7a00;
+}
+
+.header p {
+    max-width: 720px;
+
+    margin-top: 30px;
+
+    color: #888;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+.header-line {
+    width: 100%;
+
+    height: 1px;
+
+    background: #222;
+
+    margin-top: 65px;
+}
+
+
+/* =========================
+   ARTICOLI
+========================= */
+
+.press-section {
+    padding: 20px 7% 130px;
+}
+
+.press-intro {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 45px;
+}
+
+.press-intro h2 {
+    font-size: 26px;
+
+    font-weight: 500;
+}
+
+.press-intro span {
+    color: #555;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.press-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 28px;
+}
+
+.article {
+    position: relative;
+
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #151515;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    cursor: pointer;
+
+    transition: .45s ease;
+}
+
+.article:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(255,122,0,.55);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.45);
+}
+
+.article img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: .7s ease;
+}
+
+.article:hover img {
+    transform: scale(1.055);
+
+    filter: brightness(.55);
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.article-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.92),
+            rgba(0,0,0,.15) 65%,
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: .4s;
+}
+
+.article:hover .article-overlay {
+    opacity: 1;
+}
+
+.article-number {
+    color: #ff7a00;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 9px;
+}
+
+.article-title {
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: 600;
+}
+
+.article-hint {
+    color: #aaa;
+
+    font-size: 11px;
+
+    margin-top: 8px;
+}
+
+
+/* =========================
+   NUMERO ARTICOLO
+========================= */
+
+.article-corner {
+    position: absolute;
+
+    top: 20px;
+    left: 22px;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.5);
+
+    backdrop-filter: blur(8px);
+
+    color: white;
+
+    font-size: 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    transition: .3s;
+}
+
+.article:hover .article-corner {
+    background: #ff7a00;
+
+    color: #000;
+
+    border-color: #ff7a00;
+}
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.lightbox {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    background:
+        rgba(0,0,0,.96);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90vw;
+
+    max-height: 84vh;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+
+/* =========================
+   CHIUDI
+========================= */
+
+.close {
+    position: absolute;
+
+    top: 23px;
+    right: 32px;
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    z-index: 5;
+
+    transition: .3s;
+}
+
+.close:hover {
+    background: #ff7a00;
+
+    color: #000;
+}
+
+
+/* =========================
+   FRECCE
+========================= */
+
+.prev,
+.next {
+    position: absolute;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    transition: .3s;
+}
+
+.prev:hover,
+.next:hover {
+    background: #ff7a00;
+
+    color: #000;
+
+    border-color: #ff7a00;
+}
+
+.prev {
+    left: 28px;
+}
+
+.next {
+    right: 28px;
+}
+
+
+/* =========================
+   CONTATORE
+========================= */
+
+.counter {
+    position: absolute;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 70px 7%;
+
+    border-top:
+        1px solid #222;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    color: #666;
+}
+
+footer strong {
+    color: white;
+}
+
+footer .footer-dot {
+    color: #ff7a00;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    nav {
+        height: auto;
+
+        min-height: 70px;
+
+        padding: 17px 5%;
+    }
+
+    nav div {
+        flex-wrap: wrap;
+
+        justify-content: flex-end;
+    }
+
+    nav div a {
+        margin-left: 13px;
+
+        font-size: 10px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .header {
+        padding: 140px 5% 70px;
+    }
+
+    .press-section {
+        padding:
+            20px 5% 90px;
+    }
+
+    .press-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .article-overlay {
+        opacity: 1;
+    }
+
+    .press-intro {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+    .lightbox {
+        padding: 20px;
+    }
+
+    .lightbox img {
+        max-width: 94vw;
+
+        max-height: 78vh;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 20px;
+
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    nav div a {
+        margin-left: 8px;
+
+        font-size: 9px;
+    }
+
+    .header h1 {
+        font-size: 48px;
+    }
+
+    .article {
+        aspect-ratio: 3 / 4;
+    }
+
+    .close {
+        top: 15px;
+
+        right: 15px;
+    }
+
+    .prev,
+    .next {
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 20px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        Mc<span class="orange-dot">.</span>Art
+
+    </a>
+
+
+    <div>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#about">
+            Chi sono
+        </a>
+
+        <a href="index.html#gallery">
+            Opere
+        </a>
+
+        <a
+            href="credenziali.html"
+            class="active"
+        >
+            Credenziali
+        </a>
+
+        <a href="workinprogress.html">
+            Work in progress
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="header-label">
+        03 — Credenziali
+    </div>
+
+
+    <h1>
+
+        Rassegna
+        <span>stampa</span>
+
+    </h1>
+
+
+    <p>
+
+        Una selezione di articoli,
+        pubblicazioni e testimonianze
+        dedicate al percorso artistico
+        di Mc<span class="orange-dot">.</span>Art
+        e alle opere di Mario Cerrito.
+
+    </p>
+
+
+    <div class="header-line"></div>
+
+</header>
+
+
+<!-- =========================
+     ARTICOLI
+========================= -->
+
+<section class="press-section">
+
+
+    <div class="press-intro">
+
+        <h2>
+            Articoli di giornale
+        </h2>
+
+
+        <span>
+            05 pubblicazioni
+        </span>
+
+    </div>
+
+
+    <div class="press-grid">
+
+
+        <!-- ARTICOLO 1 -->
+
+        <div
+            class="article"
+            data-index="0"
+        >
+
+            <img
+                src="img/articolo1.jpg"
+                alt="Articolo di giornale 1"
+                loading="lazy"
+            >
+
+
+            <div class="article-corner">
+                01
+            </div>
+
+
+            <div class="article-overlay">
+
+                <div class="article-number">
+                    01 — PRESS
+                </div>
+
+                <div class="article-title">
+                    Articolo di giornale
+                </div>
+
+                <div class="article-hint">
+                    Clicca per ingrandire
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARTICOLO 2 -->
+
+        <div
+            class="article"
+            data-index="1"
+        >
+
+            <img
+                src="img/articolo2.jpg"
+                alt="Articolo di giornale 2"
+                loading="lazy"
+            >
+
+
+            <div class="article-corner">
+                02
+            </div>
+
+
+            <div class="article-overlay">
+
+                <div class="article-number">
+                    02 — PRESS
+                </div>
+
+                <div class="article-title">
+                    Articolo di giornale
+                </div>
+
+                <div class="article-hint">
+                    Clicca per ingrandire
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARTICOLO 3 -->
+
+        <div
+            class="article"
+            data-index="2"
+        >
+
+            <img
+                src="img/articolo3.jpg"
+                alt="Articolo di giornale 3"
+                loading="lazy"
+            >
+
+
+            <div class="article-corner">
+                03
+            </div>
+
+
+            <div class="article-overlay">
+
+                <div class="article-number">
+                    03 — PRESS
+                </div>
+
+                <div class="article-title">
+                    Articolo di giornale
+                </div>
+
+                <div class="article-hint">
+                    Clicca per ingrandire
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARTICOLO 4 -->
+
+        <div
+            class="article"
+            data-index="3"
+        >
+
+            <img
+                src="img/articolo4.jpg"
+                alt="Articolo di giornale 4"
+                loading="lazy"
+            >
+
+
+            <div class="article-corner">
+                04
+            </div>
+
+
+            <div class="article-overlay">
+
+                <div class="article-number">
+                    04 — PRESS
+                </div>
+
+                <div class="article-title">
+                    Articolo di giornale
+                </div>
+
+                <div class="article-hint">
+                    Clicca per ingrandire
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARTICOLO 5 -->
+
+        <div
+            class="article"
+            data-index="4"
+        >
+
+            <img
+                src="img/articolo5.jpg"
+                alt="Articolo di giornale 5"
+                loading="lazy"
+            >
+
+
+            <div class="article-corner">
+                05
+            </div>
+
+
+            <div class="article-overlay">
+
+                <div class="article-number">
+                    05 — PRESS
+                </div>
+
+                <div class="article-title">
+                    Articolo di giornale
+                </div>
+
+                <div class="article-hint">
+                    Clicca per ingrandire
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LIGHTBOX
+========================= -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+>
+
+
+    <div
+        class="close"
+        id="close"
+    >
+        ×
+    </div>
+
+
+    <button
+        class="prev"
+        id="prev"
+    >
+        ‹
+    </button>
+
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Articolo di giornale"
+    >
+
+
+    <button
+        class="next"
+        id="next"
+    >
+        ›
+    </button>
+
+
+    <div
+        class="counter"
+        id="counter"
+    >
+        1 / 5
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div>
+
+        © 2026
+
+        <strong>
+
+            Mc<span class="footer-dot">.</span>Art
+
+        </strong>
+
+    </div>
+
+
+    <div>
+        Mario Cerrito
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   IMMAGINI ARTICOLI
+========================= */
+
+const articles = [
+
+    "img/articolo1.jpg",
+
+    "img/articolo2.jpg",
+
+    "img/articolo3.jpg",
+
+    "img/articolo4.jpg",
+
+    "img/articolo5.jpg"
+
+];
+
+
+/* =========================
+   ELEMENTI
+========================= */
+
+const cards =
+    document.querySelectorAll(
+        ".article"
+    );
+
+
+const lightbox =
+    document.getElementById(
+        "lightbox"
+    );
+
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+
+const counter =
+    document.getElementById(
+        "counter"
+    );
+
+
+let currentIndex = 0;
+
+
+/* =========================
+   APRI ARTICOLO
+========================= */
+
+function openArticle(index) {
+
+    currentIndex = index;
+
+    lightboxImage.src =
+        articles[currentIndex];
+
+    lightboxImage.alt =
+        `Articolo di giornale ${currentIndex + 1}`;
+
+    counter.textContent =
+        `${currentIndex + 1} / ${articles.length}`;
+
+    lightbox.classList.add(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+/* =========================
+   CHIUDI
+========================= */
+
+function closeArticle() {
+
+    lightbox.classList.remove(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "";
+}
+
+
+/* =========================
+   ARTICOLO SUCCESSIVO
+========================= */
+
+function nextArticle() {
+
+    currentIndex =
+        (currentIndex + 1)
+        % articles.length;
+
+    openArticle(currentIndex);
+}
+
+
+/* =========================
+   ARTICOLO PRECEDENTE
+========================= */
+
+function previousArticle() {
+
+    currentIndex =
+        (currentIndex - 1
+        + articles.length)
+        % articles.length;
+
+    openArticle(currentIndex);
+}
+
+
+/* =========================
+   CLICK SULLE CARTE
+========================= */
+
+cards.forEach(card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            const index =
+                Number(
+                    card.dataset.index
+                );
+
+            openArticle(index);
+
+        }
+    );
+
+});
+
+
+/* =========================
+   PULSANTI
+========================= */
+
+document
+    .getElementById("close")
+    .addEventListener(
+        "click",
+        closeArticle
+    );
+
+
+document
+    .getElementById("next")
+    .addEventListener(
+        "click",
+        nextArticle
+    );
+
+
+document
+    .getElementById("prev")
+    .addEventListener(
+        "click",
+        previousArticle
+    );
+
+
+/* =========================
+   TASTIERA
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            !lightbox.classList.contains(
+                "active"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+            closeArticle();
+        }
+
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+            nextArticle();
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+            previousArticle();
+        }
+
+    }
+);
+
+
+/* =========================
+   CLICK SULLO SFONDO
+========================= */
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === lightbox
+        ) {
+            closeArticle();
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
